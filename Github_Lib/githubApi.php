@@ -144,6 +144,18 @@ class githubApi {
 						'url'=> $this->api_base.'user/repos?access_token='.$this->getAccessToken());
 		 return  $this->repo = $this->sendRequest($config);
 	}
+	// private function organisations() {
+	// 	$config = array('method'=> 'GET',
+	// 					'header'=> array("Content-Type: application/x-www-form-urlencoded",
+	// 									  "Accept: application/json",
+	// 									  "User-Agent: ".$this->app_name),
+	// 					'url'=> $this->api_base.'users/:'.$this->user.'/orgs?access_token='.$this->getAccessToken());
+		
+	// 	 return  $this->org = $this->sendRequest($config);
+	// }
+	// public function orgs(){
+	// 	return $this->organisations();
+	// }
 
 	public function repo() {
 		 return $this->listrepos();
