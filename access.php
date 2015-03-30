@@ -5,14 +5,15 @@ include('db.php'); //Database Connection.
 require_once('Github_Lib/githubConfig.php');
 require_once('Github_Lib/githubApi.php');
 if($_SERVER['REQUEST_METHOD'] == 'GET');
-if(isset($_GET['code']))
- {
- 	$git = new githubApi($config);
- 	$val = $git->getAccessToken();
- 	$_SESSION['data'] = $git->getUserDetails();
-	$_SESSION['github_data'] = $git->getAllUserDetails();
+$git = new githubApi($config);
+$_SESSION['data'] = $git->getUserDetails();
+$_SESSION['github_data'] = $git->getAllUserDetails();
 
-		$userdata = $_SESSION['github_data'];
+if(isset($_SESSION['data']) && isset($_SESSION['github_data']))
+ {
+ 	
+  		$val = $git->getAccessToken();
+ 		$userdata = $_SESSION['github_data'];
 		$email = $userdata->email;
 		$fullName = $userdata->name;
 		$company = $userdata->company;
@@ -25,7 +26,7 @@ if(isset($_GET['code']))
 
 		 $_SESSION['repo'] = $git->repo();
 		//echo $_SESSION['repo'][1][0]->name;
-		 $max = sizeof($_SESSION['repo'][1]);
+		 //$max = sizeof($_SESSION['repo'][1]);
 
 				$repository = array();
 			 foreach ($_SESSION['repo'][1] as $key => $value)
@@ -59,5 +60,7 @@ echo "</pre>";
 echo "<h1>Welcome to ".$fullName."</h1>";
 
 echo "<a href='logout.php'>Logout</a>";
-
+else {
+	header('location:index.php');
+}
 ?>
